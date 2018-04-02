@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.hoangtuan.translatechinesehwriting.MainActivity">
+
+   <android.support.v7.widget.Toolbar
+       android:id="@+id/tBar"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="#C62828"/>
+    <TextView
+        android:background="@drawable/shadow_top_to_dow"
+        android:id="@+id/txtShadow"
+        android:layout_below="@+id/tBar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+<LinearLayout
+    android:layout_marginTop="10dp"
+    android:id="@+id/llFind"
+    android:weightSum="10"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:layout_below="@+id/txtShadow"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+    <ImageView
+        android:id="@+id/imgCopy"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/ic_copy"
+        android:layout_weight="1"
+        android:layout_width="28dp"
+        android:layout_height="28dp" />
+   <LinearLayout
+       android:layout_margin="5dp"
+       android:gravity="center"
+       android:background="@drawable/ic_line_edit"
+       android:layout_weight="8"
+       android:layout_width="0dp"
+       android:layout_height="45dp">
+       <com.hoangtuan.translatechinesehwriting.CustomEdittext
+           android:layout_marginRight="10dp"
+           android:layout_marginLeft="10dp"
+           android:background="#ffffff"
+           android:id="@+id/edtText"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           />
+   </LinearLayout>
+    <Button
+        android:layout_margin="5dp"
+        android:textAllCaps="false"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/ic_line_button"
+        android:textColor="#ffffff"
+        android:onClick="onFind"
+        android:text="Find"
+        android:id="@+id/btnFind"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp" />
+</LinearLayout>
+    <com.myscript.atk.scw.SingleCharWidget
+        android:layout_margin="10dp"
+        android:background="@drawable/manhinhve"
+        android:id="@+id/singChar"
+        android:layout_above="@+id/llBtnOption"
+        android:layout_below="@+id/llFind"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.myscript.atk.scw.SingleCharWidget>
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/llBtnOption"
+        android:layout_above="@+id/recyGoiY"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <Button
+            android:layout_margin="5dp"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/ic_line_button"
+            android:text="Backspace"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onDelete"
+             />
+        <Button
+            android:layout_margin="5dp"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/ic_line_button"
+            android:onClick="onSpace"
+            android:text="Space"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_margin="5dp"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/ic_line_button"
+            android:onClick="onClear"
+            android:text="Clear"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/recyGoiY"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"></android.support.v7.widget.RecyclerView>
+</RelativeLayout>
