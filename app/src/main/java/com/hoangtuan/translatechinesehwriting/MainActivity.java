@@ -2,37 +2,27 @@ package com.hoangtuan.translatechinesehwriting;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.hoangtuan.translatechinesehwriting.Adapter.GoiYAdapter;
 import com.hoangtuan.translatechinesehwriting.Model.GoiYModel;
-
+import com.myscript.atk.core.ui.IStroker;
 import com.myscript.atk.scw.SingleCharWidgetApi;
 import com.myscript.atk.text.CandidateInfo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends Activity implements
@@ -43,7 +33,6 @@ public class MainActivity extends Activity implements
         SingleCharWidgetApi.OnBackspaceGestureListener,
         SingleCharWidgetApi.OnReturnGestureListener,
         CustomEdittext.OnSelectionChanged {
-
 
     private Toolbar tBar;
     private MaterialMenuDrawable materialMenu;
@@ -66,6 +55,7 @@ public class MainActivity extends Activity implements
         tBar.setNavigationIcon(materialMenu);
         tBar.setTitleTextColor(Color.WHITE);
         tBar.setTitle("");
+
         tBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,13 +79,9 @@ public class MainActivity extends Activity implements
             return;
         }
         mTextField = (CustomEdittext) findViewById(R.id.edtText);
-
-
         goiYModels = new ArrayList<>();
         goiYAdapter = new GoiYAdapter(this);
-
         recyGoiY = (RecyclerView) findViewById(R.id.recyGoiY);
-
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyGoiY.setHasFixedSize(true);
         recyGoiY.setLayoutManager(manager);
@@ -115,6 +101,12 @@ public class MainActivity extends Activity implements
         mWidget.setOnReturnGestureListener(this);
         mWidget.setOnSingleTapGestureListener(this);
         mWidget.setOnLongPressGestureListener(this);
+        mWidget.isAutoSpaceEnabled();
+        mWidget.setInkFadeOutDelay(1000);
+        mWidget.setLongPressDelay(1000);
+        mWidget.setAutoFreezeDelay(1000);
+
+        mWidget.setInkEffect(IStroker.Stroking.CALLIGRAPHIC_BRUSH);
 
         mWidget.addSearchDir("zip://" + getPackageCodePath() + "!/assets/conf");
         mWidget.configure("zh_CN", "si_text");
@@ -140,17 +132,11 @@ public class MainActivity extends Activity implements
     }
 
     private void setClipboard(Context context, String text) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-            clipboard.setText(text);
-        } else {
-            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
-            clipboard.setPrimaryClip(clip);
-        }
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+        clipboard.setPrimaryClip(clip);
     }
 
-    //Wi callback
     @Override
     public void onSelectionChanged(EditText editText, int selStart, int selEnd) {
         mWidget.setInsertIndex(selStart);
@@ -191,7 +177,6 @@ public class MainActivity extends Activity implements
         mTextField.setSelection(mWidget.getInsertIndex());
         mTextField.setOnSelectionChangedListener(this);
         updateCandidatePanel();
-
     }
 
     public void onDelete(View view) {
@@ -211,20 +196,15 @@ public class MainActivity extends Activity implements
 
     public void onFind(View view) {
         String text = mTextField.getText().toString().trim();
-        if (!text.equals("") && text != null) {
+        if (!text.equals("")) {
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra("text", mTextField.getText().toString());
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
-
     }
 
-    // update candidates bar
-
-
-    // update candidates panel
     private void updateCandidatePanel() {
 
         goiYModels.clear();

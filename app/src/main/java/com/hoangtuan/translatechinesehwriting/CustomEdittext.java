@@ -41,11 +41,10 @@ public class CustomEdittext extends EditText {
         setTextIsSelectable(true);
     }
 
-
-
     public void setOnSelectionChangedListener(OnSelectionChanged l) {
         mOnSelectionChangedListener = l;
     }
+
     @Override
     public void setSelection(int index) {
         int length = getText().length();

@@ -31,10 +31,12 @@ public class GoiYAdapter extends RecyclerView.Adapter<GoiYAdapter.GoiYHolder> {
         this.context = context;
        goiYModels = Collections.EMPTY_LIST;
     }
+
     public void setCandidates(List<GoiYModel> candidates) {
         goiYModels = candidates;
         notifyDataSetChanged();
     }
+
     @Override
     public GoiYHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_goiy, parent, false);
@@ -55,13 +57,9 @@ public class GoiYAdapter extends RecyclerView.Adapter<GoiYAdapter.GoiYHolder> {
 
     public class GoiYHolder extends RecyclerView.ViewHolder {
         TextView txtGoiY;
-
-
         public GoiYHolder(View itemView) {
             super(itemView);
             txtGoiY = (TextView) itemView.findViewById(R.id.txtGoiY);
-
-
         }
     }
 }
