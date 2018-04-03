@@ -20,8 +20,7 @@ allprojects {
         google()
         jcenter()
         flatDir {
-            // Location of your package's `libs` directory containing `*.aar` files.
-            dirs 'path/to/libs'
+            dirs '../libs'
         }
     }
 }
