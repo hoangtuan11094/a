@@ -50,7 +50,7 @@ public class WebViewActivity extends AppCompatActivity { //s
         WebSettings settings = mWebview.getSettings();
         settings.setJavaScriptEnabled(true);
         mWebview.loadUrl("https://translate.google.com/#zh-CN/vi/" + link);
-
+//cmt
         tBar = (Toolbar) findViewById(R.id.tBarWeb);
         setSupportActionBar(tBar);
         materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
