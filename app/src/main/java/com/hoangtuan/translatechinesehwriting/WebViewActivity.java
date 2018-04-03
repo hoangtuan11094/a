@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity { //s
     private WebView mWebview;
     private Toolbar tBar;
     private MaterialMenuDrawable materialMenu;
